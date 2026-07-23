@@ -4,6 +4,9 @@ const cron = require('node-cron');
 const nodemailer = require('nodemailer');
 const db = require('./db');
 const ingresosRouter = require('./routes/ingresos');
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
+
 
 app.use(express.json());
 app.use('/ingresos', ingresosRouter);
