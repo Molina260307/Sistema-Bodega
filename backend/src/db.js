@@ -1,5 +1,12 @@
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./bodega.db');
+// Importar better-sqlite3
+const Database = require('better-sqlite3');
+
+// Abrir la base de datos (archivo bodega.db está en backend)
+const db = new Database('../bodega.db');
+
+
+
+
 
 // Crear tabla si no existe
 db.serialize(() => {

@@ -3,9 +3,13 @@ const app = express();
 const cron = require('node-cron');
 const nodemailer = require('nodemailer');
 const db = require('./db');
+
 const ingresosRouter = require('./routes/ingresos');
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
+// Ejemplo de consulta
+const rows = db.prepare("SELECT * FROM ingresos").all();
+console.log(rows);
 
 
 app.use(express.json());
