@@ -5,23 +5,18 @@ const nodemailer = require('nodemailer');
 const db = require('./db');
 
 const ingresosRouter = require('./routes/ingresos');
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
-// Ejemplo de consulta
-const rows = db.prepare("SELECT * FROM ingresos").all();
-console.log(rows);
 
-
+// Middleware
 app.use(express.json());
 app.use('/ingresos', ingresosRouter);
 
 // Configuración de correo
 const transporter = nodemailer.createTransport({
-  host: "smtp.office365.com", // si usas Outlook corporativo
+  host: "smtp.office365.com",
   port: 587,
   secure: false,
   auth: {
-    user: "bodegas@expotransportesg.com", // tu correo
+    user: "bodegas@expotransportesg.com",
     pass: "Bodega2026#"
   }
 });
@@ -51,7 +46,7 @@ cron.schedule('0 16 * * 4', () => {
 
     transporter.sendMail({
       from: 'bodegas@expotransportesg.com',
-      to: ['cgarcia@expotransportesg.com', 'sramirez@expotransportesg.com'], // tus jefes
+      to: ['cgarcia@expotransportesg.com', 'sramirez@expotransportesg.com'],
       subject: 'Reporte semanal de ingresos',
       text: reporte
     }, (error, info) => {
@@ -64,6 +59,6 @@ cron.schedule('0 16 * * 4', () => {
   });
 });
 
-app.listen(5000, () => {
-  console.log('Servidor corriendo en puerto 5000');
-});
+// Solo una vez se arranca el servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
