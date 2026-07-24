@@ -1,7 +1,6 @@
-const Database = require('better-sqlite3');
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./bodega.db');
 
-// Abre o crea la base de datos
-const db = new Database('./bodega.db');
 
 // Crear tabla ingresos si no existe
 db.prepare(`
