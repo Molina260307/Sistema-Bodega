@@ -66,11 +66,19 @@ router.post('/multiple', upload.array('imagenes', 5), (req, res) => {
   const cbm = (l_m * a_m * h_m).toFixed(3);
   const pesoKg = parseFloat(peso);
 
-  db.run(`INSERT INTO ingresos (fecha, proveedor, descripcion, cantidad, unidad, ubicacion, observaciones, imagen, largo, ancho, alto, cbm, peso)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-          [fecha, proveedor, descripcion, cantidad, unidad, ubicacion, observaciones, imagenes, largo, ancho, alto, cbm, pesoKg],
-          err => err ? res.status(500).send(err) : res.send('Ingreso registrado con CBM, peso y varias imágenes'));
-});
+  db.run(
+  `INSERT INTO ingresos (...) VALUES (...)`,
+  [fecha, proveedor, descripcion, cantidad, unidad, ubicacion, observaciones, imagen, largo, ancho, alto, cbm],
+  err => {
+    if (err) {
+      console.error("Error en INSERT:", err); // 👈 esto mostrará el error real
+      res.status(500).send(err.message);
+    } else {
+      res.send('Ingreso registrado con CBM');
+    }
+  }
+);
+
 
 // Ruta: ingresos de la última semana
 router.get('/semana', (req, res) => {
