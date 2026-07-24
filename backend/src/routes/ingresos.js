@@ -4,6 +4,18 @@ const multer = require('multer');
 const path = require('path');
 const db = require('../db');
 
+// Ruta: listar todos los ingresos
+router.get('/', (req, res) => {
+  db.all("SELECT * FROM ingresos", [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+
 
 // Configuración de almacenamiento
 const storage = multer.diskStorage({
