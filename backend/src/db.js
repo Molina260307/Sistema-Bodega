@@ -1,20 +1,16 @@
 const Database = require('better-sqlite3');
-const db = new Database('../bodega.db');
-module.exports = db;
 
+// Abre o crea la base de datos
+const db = new Database('./bodega.db');
 
-
-
-
-
-// Crear tabla si no existe
-db.serialize(() => {
-  db.run(`CREATE TABLE IF NOT EXISTS ingresos (
+// Crear tabla ingresos si no existe
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS ingresos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     fecha TEXT,
     proveedor TEXT,
     descripcion TEXT,
-    cantidad REAL,
+    cantidad INTEGER,
     unidad TEXT,
     ubicacion TEXT,
     observaciones TEXT,
@@ -23,8 +19,8 @@ db.serialize(() => {
     ancho REAL,
     alto REAL,
     cbm REAL,
-    peso REAL   -- 👈 nuevo campo para peso en kg con decimales
-  )`);
-});
+    peso REAL
+  )
+`).run();
 
 module.exports = db;
