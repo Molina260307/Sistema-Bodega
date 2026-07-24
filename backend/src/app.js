@@ -9,6 +9,11 @@ const ingresosRouter = require('./routes/ingresos');
 // Middleware
 app.use(express.json());
 app.use('/ingresos', ingresosRouter);
+// Ruta raíz para probar que el servidor funciona
+app.get('/', (req, res) => {
+  res.send('✅ API Sistema Bodega funcionando. Usa /ingresos para ver datos.');
+});
+
 
 // Configuración de correo
 const transporter = nodemailer.createTransport({
