@@ -1,8 +1,7 @@
-// Importar better-sqlite3
 const Database = require('better-sqlite3');
-
-// Abrir la base de datos (archivo bodega.db está en backend)
 const db = new Database('../bodega.db');
+module.exports = db;
+
 
 
 
